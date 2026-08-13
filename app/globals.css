@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 230, 240, 230;
+  --background-start-rgb: 11, 21, 11;
+  --background-end-rgb: 26, 46, 26;
+}
+
+
