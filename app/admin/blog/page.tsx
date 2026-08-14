@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Plus, Edit2, Trash2, X, Image as ImageIcon, Loader2, RefreshCw } from "lucide-react";
 
 interface BlogPost {
-  id: str;
+  id: string;
   title: string;
   slug: string;
   category: string;
