@@ -45,11 +45,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex h-screen bg-bezoli-dark overflow-hidden font-sans">
+    <div className="fixed inset-0 z-[100] flex flex-col lg:flex-row bg-bezoli-dark font-sans">
       <AdminSidebar />
       
       {/* Contenido principal */}
-      <main className="flex-1 overflow-y-auto bg-nature-bg/30">
+      <main className="flex-1 overflow-y-auto bg-nature-bg/30 relative">
         <div className="p-4 lg:p-8">
           {children}
         </div>

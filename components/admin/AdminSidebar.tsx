@@ -19,20 +19,20 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden bg-nature-dark/80 backdrop-blur-md border-b border-white/10 p-4 flex justify-between items-center sticky top-0 z-50">
+      <div className="lg:hidden bg-nature-dark border-b border-white/10 p-4 flex justify-between items-center shrink-0">
         <h2 className="text-xl font-bold bg-gradient-to-r from-bezoli-green to-emerald-400 bg-clip-text text-transparent">
           Bezoli Admin
         </h2>
-        <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-white">
+        <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-white p-2">
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-nature-dark border-r border-white/10 transform transition-transform duration-300 ease-in-out flex flex-col ${
+        className={`fixed inset-y-0 left-0 z-[110] w-64 bg-nature-dark border-r border-white/10 transform transition-transform duration-300 ease-in-out flex flex-col ${
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } lg:static lg:inset-0`}
+        } lg:static lg:inset-0 lg:z-auto`}
       >
         <div className="p-6 hidden lg:block">
           <h2 className="text-2xl font-black tracking-tight text-white flex items-center gap-2">
@@ -79,7 +79,7 @@ export default function AdminSidebar() {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[105] lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}

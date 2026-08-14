@@ -1228,6 +1228,15 @@ video {
 .z-50 {
   z-index: 50;
 }
+.z-\[100\] {
+  z-index: 100;
+}
+.z-\[105\] {
+  z-index: 105;
+}
+.z-\[110\] {
+  z-index: 110;
+}
 .order-1 {
   order: 1;
 }
@@ -1492,6 +1501,9 @@ video {
   flex: 1 1 0%;
 }
 .flex-shrink-0 {
+  flex-shrink: 0;
+}
+.shrink-0 {
   flex-shrink: 0;
 }
 .flex-grow {
@@ -3266,6 +3278,10 @@ video {
 
   .lg\:inset-0 {
     inset: 0px;
+  }
+
+  .lg\:z-auto {
+    z-index: auto;
   }
 
   .lg\:block {
