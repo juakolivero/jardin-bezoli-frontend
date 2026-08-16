@@ -1398,9 +1398,6 @@ video {
 .h-full {
   height: 100%;
 }
-.h-screen {
-  height: 100vh;
-}
 .max-h-\[90vh\] {
   max-height: 90vh;
 }
@@ -2585,6 +2582,9 @@ video {
 .opacity-70 {
   opacity: 0.7;
 }
+.opacity-40 {
+  opacity: 0.4;
+}
 .mix-blend-overlay {
   mix-blend-mode: overlay;
 }
@@ -2736,6 +2736,46 @@ video {
   --foreground-rgb: 230, 240, 230;
   --background-start-rgb: 11, 21, 11;
   --background-end-rgb: 26, 46, 26;
+}
+
+.file\:mr-4::file-selector-button {
+  margin-right: 1rem;
+}
+
+.file\:rounded-lg::file-selector-button {
+  border-radius: 0.5rem;
+}
+
+.file\:border-0::file-selector-button {
+  border-width: 0px;
+}
+
+.file\:bg-white\/10::file-selector-button {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+.file\:px-4::file-selector-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.file\:py-2::file-selector-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.file\:text-sm::file-selector-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.file\:font-semibold::file-selector-button {
+  font-weight: 600;
+}
+
+.file\:text-white::file-selector-button {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .hover\:-translate-y-1:hover {
@@ -2934,6 +2974,10 @@ video {
 .hover\:brightness-110:hover {
   --tw-brightness: brightness(1.1);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.hover\:file\:bg-white\/20::file-selector-button:hover {
+  background-color: rgb(255 255 255 / 0.2);
 }
 
 .focus\:border-\[\#C4D68B\]:focus {
