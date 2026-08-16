@@ -7,6 +7,7 @@ interface PlantData {
   id: string;
   sku: string;
   name: string;
+  description: string | null;
   price: number;
   stock_quantity: number;
   status: string;
@@ -101,6 +102,13 @@ export default async function PlantaPage({ params }: { params: { sku: string } }
                 ${plant.price.toLocaleString('es-CL')}
                 <span className="text-lg text-neutral-400 font-normal ml-2">CLP</span>
               </div>
+
+              {/* Description */}
+              {plant.description && (
+                <p className="text-neutral-600 text-lg leading-relaxed mb-8 whitespace-pre-line">
+                  {plant.description}
+                </p>
+              )}
 
               {/* Pet Friendly Badge */}
               <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-green-50 border border-green-200 text-green-700 font-semibold text-sm mb-8 w-fit shadow-sm">
