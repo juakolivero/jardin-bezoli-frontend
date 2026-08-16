@@ -28,6 +28,7 @@ interface PlantData {
   image_url_3?: string | null;
   image_url_4?: string | null;
   image_url_5?: string | null;
+  image_metadata?: string | null;
 }
 
 async function getPlantData(sku: string): Promise<PlantData | null> {
@@ -83,7 +84,13 @@ export default async function PlantaPage({ params }: { params: { sku: string } }
 
             {/* Left Column - Image Gallery */}
             <div className="lg:w-1/2 border-r border-neutral-100 flex flex-col">
-              <ProductGallery images={images} productName={plant.name} isOutOfStock={plant.stock_quantity === 0} />
+              <ProductGallery 
+                images={images} 
+                productName={plant.name} 
+                isOutOfStock={plant.stock_quantity === 0}
+                sku={plant.sku}
+                initialMetadata={plant.image_metadata || null}
+              />
             </div>
 
             {/* Right Column - Details */}
