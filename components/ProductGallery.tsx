@@ -24,9 +24,9 @@ export default function ProductGallery({ images, productName, isOutOfStock }: Pr
   if (images.length === 0) return null;
 
   return (
-    <div className="flex flex-col h-full bg-neutral-100 w-full">
+    <div className="flex flex-col h-full w-full bg-neutral-100">
       {/* Main Image */}
-      <div className="relative h-80 sm:h-96 lg:h-[500px] group overflow-hidden bg-neutral-200">
+      <div className="relative h-80 sm:h-96 lg:flex-1 lg:h-auto group overflow-hidden bg-neutral-200">
         <Image
           src={images[currentIndex]}
           alt={`${productName} - Imagen ${currentIndex + 1}`}
