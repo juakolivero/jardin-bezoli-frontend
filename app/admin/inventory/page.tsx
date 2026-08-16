@@ -14,6 +14,10 @@ interface InventoryItem {
   category?: string;
   difficulty?: string;
   image_url?: string;
+  image_url_2?: string;
+  image_url_3?: string;
+  image_url_4?: string;
+  image_url_5?: string;
   substrate_type?: string;
   min_humidity_percent?: number;
   max_humidity_percent?: number;
@@ -114,7 +118,7 @@ export default function InventoryAdmin() {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, fieldKey: keyof InventoryItem = "image_url") => {
     const file = e.target.files?.[0];
     if (!file || !token) return;
 
@@ -130,7 +134,7 @@ export default function InventoryAdmin() {
       });
       const data = await res.json();
       if (res.ok) {
-        setCurrentItem({ ...currentItem, image_url: data.url });
+        setCurrentItem({ ...currentItem, [fieldKey]: data.url });
       } else {
         alert(data.detail || "Error subiendo imagen");
       }
@@ -427,25 +431,56 @@ export default function InventoryAdmin() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Imagen del Producto (URL o Subir)</label>
-                    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                      {(currentItem.image_url || currentItem.sku) && (
-                        <img 
-                          src={currentItem.image_url || `/images/plants/${currentItem.sku}.jpg`} 
-                          alt="Preview" 
-                          className="w-16 h-16 object-cover rounded-lg bg-black/50 border border-white/10" 
-                          onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150?text=No+Image'; }}
-                        />
-                      )}
-                      <div className="flex-1 w-full flex gap-2">
-                        <input type="text" placeholder={`/images/plants/${currentItem.sku || 'sku'}.jpg`} value={currentItem.image_url || ""} onChange={(e) => setCurrentItem({...currentItem, image_url: e.target.value})} className="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-bezoli-green" />
-                        <div className="relative shrink-0">
-                          <input type="file" accept="image/*" onChange={handleImageUpload} disabled={isUploadingImage} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed" />
-                          <button type="button" disabled={isUploadingImage} className="flex items-center justify-center h-full px-4 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors border border-white/10">
-                            {isUploadingImage ? <Loader2 size={20} className="animate-spin" /> : "Subir Foto"}
-                          </button>
-                        </div>
-                      </div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Imágenes del Producto</label>
+                    <div className="space-y-4">
+                      {[
+                        { key: "image_url", label: "Principal (Portada)" },
+                        { key: "image_url_2", label: "Imagen 2" },
+                        { key: "image_url_3", label: "Imagen 3" },
+                        { key: "image_url_4", label: "Imagen 4" },
+                        { key: "image_url_5", label: "Imagen 5" }
+                      ].map((imgField, index) => {
+                        const val = currentItem[imgField.key as keyof InventoryItem] as string;
+                        // Mostrar fallback local solo en la primera imagen si está vacía, para las demás no hay fallback
+                        const isMain = index === 0;
+                        const hasPreview = val || (isMain && currentItem.sku);
+                        const previewSrc = val || (isMain ? `/images/plants/${currentItem.sku}.jpg` : "");
+
+                        return (
+                          <div key={imgField.key} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-white/5 p-3 rounded-2xl border border-white/5">
+                            <div className="w-16 flex-shrink-0 text-center">
+                              {hasPreview ? (
+                                <img 
+                                  src={previewSrc} 
+                                  alt="Preview" 
+                                  className="w-16 h-16 object-cover rounded-lg bg-black/50 border border-white/10" 
+                                  onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150?text=No+Image'; }}
+                                />
+                              ) : (
+                                <div className="w-16 h-16 rounded-lg bg-black/30 border border-white/5 flex items-center justify-center text-xs text-white/30">Vacío</div>
+                              )}
+                            </div>
+                            <div className="flex-1 w-full flex flex-col gap-1">
+                              <span className="text-xs text-white/60 ml-1">{imgField.label}</span>
+                              <div className="flex gap-2">
+                                <input 
+                                  type="text" 
+                                  placeholder={isMain ? `/images/plants/${currentItem.sku || 'sku'}.jpg` : "https://..."} 
+                                  value={val || ""} 
+                                  onChange={(e) => setCurrentItem({...currentItem, [imgField.key]: e.target.value})} 
+                                  className="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-bezoli-green text-sm" 
+                                />
+                                <div className="relative shrink-0">
+                                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, imgField.key as keyof InventoryItem)} disabled={isUploadingImage} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed" />
+                                  <button type="button" disabled={isUploadingImage} className="flex items-center justify-center h-full px-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors border border-white/10 text-sm whitespace-nowrap">
+                                    Subir
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

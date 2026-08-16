@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddToCartButton from "@/components/AddToCartButton";
+import ProductGallery from "@/components/ProductGallery";
 
 interface PlantData {
   id: string;
@@ -23,6 +24,10 @@ interface PlantData {
   dimensions: string | null;
   volume: string | null;
   image_url?: string | null;
+  image_url_2?: string | null;
+  image_url_3?: string | null;
+  image_url_4?: string | null;
+  image_url_5?: string | null;
 }
 
 async function getPlantData(sku: string): Promise<PlantData | null> {
@@ -50,8 +55,14 @@ export default async function PlantaPage({ params }: { params: { sku: string } }
     notFound();
   }
 
-  // Ruta dinámica a la imagen
-  const imageUrl = plant.image_url || `/images/plants/${plant.sku}.jpg`;
+  // Galería de imágenes
+  const images = [
+    plant.image_url || `/images/plants/${plant.sku}.jpg`,
+    plant.image_url_2,
+    plant.image_url_3,
+    plant.image_url_4,
+    plant.image_url_5,
+  ].filter((url): url is string => Boolean(url));
 
   return (
     <div className="min-h-screen bg-neutral-50 py-12 font-sans">
@@ -70,22 +81,9 @@ export default async function PlantaPage({ params }: { params: { sku: string } }
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-100">
           <div className="flex flex-col lg:flex-row">
 
-            {/* Left Column - Image */}
-            <div className="lg:w-1/2 relative h-80 sm:h-96 lg:h-auto bg-neutral-100 group overflow-hidden">
-              <Image
-                src={imageUrl}
-                alt={plant.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
-              {/* Badge for status overlaid on image */}
-              {plant.stock_quantity === 0 && (
-                <div className="absolute top-4 left-4 bg-red-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg uppercase tracking-wide">
-                  Agotado
-                </div>
-              )}
+            {/* Left Column - Image Gallery */}
+            <div className="lg:w-1/2 border-r border-neutral-100 flex flex-col">
+              <ProductGallery images={images} productName={plant.name} isOutOfStock={plant.stock_quantity === 0} />
             </div>
 
             {/* Right Column - Details */}
