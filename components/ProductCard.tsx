@@ -16,8 +16,8 @@ interface Plant {
   max_humidity_percent: number | null;
   min_temp_c: number | null;
   max_temp_c: number | null;
-  light: string | null;
-  substrate_type: string | null;
+  light?: string | null;
+  substrate_type?: string | null;
   image_url?: string | null;
 }
 
