@@ -22,6 +22,7 @@ interface PlantData {
   material: string | null;
   dimensions: string | null;
   volume: string | null;
+  image_url?: string | null;
 }
 
 async function getPlantData(sku: string): Promise<PlantData | null> {
@@ -49,8 +50,8 @@ export default async function PlantaPage({ params }: { params: { sku: string } }
     notFound();
   }
 
-  // Ruta dinámica a la carpeta local public/images/plants/
-  const imageUrl = `/images/plants/${plant.sku}.jpg`;;
+  // Ruta dinámica a la imagen
+  const imageUrl = plant.image_url || `/images/plants/${plant.sku}.jpg`;
 
   return (
     <div className="min-h-screen bg-neutral-50 py-12 font-sans">

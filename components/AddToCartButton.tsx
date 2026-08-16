@@ -9,6 +9,7 @@ interface AddToCartButtonProps {
     name: string;
     price: number | string;
     stock_quantity: number;
+    image_url?: string | null;
   };
 }
 
@@ -22,7 +23,7 @@ export default function AddToCartButton({ plant }: AddToCartButtonProps) {
       name: plant.name,
       price: typeof plant.price === 'number' ? plant.price : parseFloat(plant.price as string),
       quantity: 1,
-      image: `/images/plants/${plant.sku}.jpg`
+      image: plant.image_url || `/images/plants/${plant.sku}.jpg`
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);

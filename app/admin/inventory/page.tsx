@@ -429,11 +429,16 @@ export default function InventoryAdmin() {
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">Imagen del Producto (URL o Subir)</label>
                     <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                      {currentItem.image_url && (
-                        <img src={currentItem.image_url} alt="Preview" className="w-16 h-16 object-cover rounded-lg bg-black/50 border border-white/10" />
+                      {(currentItem.image_url || currentItem.sku) && (
+                        <img 
+                          src={currentItem.image_url || `/images/plants/${currentItem.sku}.jpg`} 
+                          alt="Preview" 
+                          className="w-16 h-16 object-cover rounded-lg bg-black/50 border border-white/10" 
+                          onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150?text=No+Image'; }}
+                        />
                       )}
                       <div className="flex-1 w-full flex gap-2">
-                        <input type="text" placeholder="https://..." value={currentItem.image_url || ""} onChange={(e) => setCurrentItem({...currentItem, image_url: e.target.value})} className="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-bezoli-green" />
+                        <input type="text" placeholder={`/images/plants/${currentItem.sku || 'sku'}.jpg`} value={currentItem.image_url || ""} onChange={(e) => setCurrentItem({...currentItem, image_url: e.target.value})} className="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-bezoli-green" />
                         <div className="relative shrink-0">
                           <input type="file" accept="image/*" onChange={handleImageUpload} disabled={isUploadingImage} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed" />
                           <button type="button" disabled={isUploadingImage} className="flex items-center justify-center h-full px-4 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors border border-white/10">

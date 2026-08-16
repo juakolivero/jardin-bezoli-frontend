@@ -16,8 +16,9 @@ interface Plant {
   max_humidity_percent: number | null;
   min_temp_c: number | null;
   max_temp_c: number | null;
-  light?: string | null;
-  substrate_type?: string | null;
+  light: string | null;
+  substrate_type: string | null;
+  image_url?: string | null;
 }
 
 export default function ProductCard({ plant }: { plant: Plant }) {
@@ -28,9 +29,9 @@ export default function ProductCard({ plant }: { plant: Plant }) {
     addToCart({
       sku: plant.sku,
       name: plant.name,
-      price: typeof plant.price === 'number' ? plant.price : parseFloat(plant.price as string),
+      price: plant.price,
       quantity: 1,
-      image: `/images/plants/${plant.sku}.jpg`
+      image: plant.image_url || `/images/plants/${plant.sku}.jpg`
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
@@ -52,7 +53,7 @@ export default function ProductCard({ plant }: { plant: Plant }) {
   }
 
   // Usamos la imagen local basada en el SKU de la planta
-  const imagePath = `/images/plants/${plant.sku}.jpg`;
+  const imagePath = plant.image_url || `/images/plants/${plant.sku}.jpg`;
 
   return (
     <div className="group relative rounded-2xl border border-nature-medium bg-nature-dark/50 p-6 overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(74,124,74,0.3)] hover:-translate-y-1 hover:border-nature-light backdrop-blur-sm flex flex-col h-full">
