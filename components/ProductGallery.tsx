@@ -20,7 +20,7 @@ interface ImageMeta {
 
 export default function ProductGallery({ images, productName, isOutOfStock, sku, initialMetadata }: ProductGalleryProps) {
   const { token, user } = useAuth();
-  const isAdmin = user?.role === "admin" && token && sku;
+  const isAdmin = user?.is_admin && token && sku;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [editMode, setEditMode] = useState(false);
