@@ -20,6 +20,7 @@ interface PlantData {
   sunlight_notes: string | null;
   light: string | null;
   category: string;
+  difficulty: string | null;
   material: string | null;
   dimensions: string | null;
   volume: string | null;
